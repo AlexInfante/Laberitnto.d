@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+/*1. algoritmo que permita dibujar un laberinto que presente el camino a la meta*/
+#define tamaño 17
+int main(){
+    
+    int posicionX = 0;
+    int posicionY = 13;
+    char jugador[tamaño][tamaño];
+    char direccion;
+    char laberinto[tamaño][tamaño] = {
+        {'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
+        {'x', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'x', ' ', ' ', ' ', ' ', ' ', 'x'},
+        {'x', 'x', 'x', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', ' ', 'x', 'x', 'x', 'x', 'x'},
+        {'x', ' ', 'x', ' ', 'x', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'x', ' ', ' ', ' ', ' '},
+        {'x', ' ', 'x', ' ', 'x', 'x', 'x', 'x', 'x', ' ', 'x', 'x', 'x', ' ', 'x', 'x', 'x'},
+        {'x', ' ', 'x', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'x', ' ', ' ', ' ', ' ', ' ', 'x'},
+        {'x', ' ', 'x', ' ', 'x', 'x', 'x', 'x', 'x', ' ', 'x', ' ', 'x', ' ', 'x', 'x', 'x'},
+        {'x', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'x', ' ', ' ', ' ', 'x', ' ', 'x', ' ', 'x'},
+        {'x', 'x', 'x', 'x', 'x', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', ' ', 'x'},
+        {'x', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'x', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'x'},
+        {'x', ' ', 'x', 'x', 'x', 'x', 'x', ' ', 'x', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
+        {'x', ' ', 'x', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'x', ' ', ' ', ' ', ' ', ' ', 'x'},
+        {'x', 'x', 'x', ' ', 'x', 'x', 'x', ' ', 'x', 'x', 'x', ' ', 'x', 'x', 'x', 'x', 'x'},
+        {' ', ' ', ' ', ' ', ' ', ' ', 'x', ' ', ' ', ' ', ' ', ' ', 'x', ' ', ' ', ' ', 'x'},
+        {'x', 'x', 'x', 'x', 'x', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', ' ', 'x', ' ', 'x'},
+        {'x', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'x', ' ', 'x'},
+        {'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'}
+    };
+    int cont = 0;
+    int err = 0;
+    do{
+        for (int i = 0; i < tamaño; i++){
+            for (int j = 0; j < tamaño; j++){
+                if(i == posicionY && j == posicionX){
+                    printf("@ ");
+                }else{
+                    printf("%c ", laberinto[i][j]);
+                }
+            }
+            printf("\n");
+        }
+        printf("PRESIONE w, a, s, o d para moverse: ");
+        direccion = getch();
+        int actualX = posicionX;
+        int actualY = posicionY;
+        switch(direccion){
+            case 'w': actualY--; break;
+            case 'a': actualX--; break;
+            case 's': actualY++; break;
+            case 'd': actualX++; break;
+        }
+        if(laberinto[actualY][actualX] == ' '){
+            posicionX = actualX;
+            posicionY = actualY;
+            cont++;
+        }else{
+            err++;
+        }
+        printf("\n");
+    } while(posicionX != 16 || posicionY != 3);
+    for (int i = 0; i < tamaño; i++){
+            for (int j = 0; j < tamaño; j++){
+                if(i == posicionY && j == posicionX){
+                    printf("@ ");
+                }else{
+                    printf("%c ", laberinto[i][j]);
+                }
+            }
+            printf("\n");
+        }
+        if(err == 1){
+            printf("¡Felicidades!, completaste el laberinto en %d movimientos y %d choque con las paredes", cont, err);
+        }else{
+            printf("¡Felicidades!, completaste el laberinto en %d movimientos y %d choques con las paredes", cont, err);
+        }
+    return 0;
+}
